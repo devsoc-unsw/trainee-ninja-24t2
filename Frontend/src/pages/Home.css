@@ -1,0 +1,66 @@
+/* GENERAL */
+
+:root {
+    --color-bg: #a5d8ff;
+    --color-room-list-bg: #fae6ff;
+    --color-room-bg: white;
+    --color-room-hover: #e8e8e8;
+    --color-room-active: #cecece;
+}
+
+body {
+    background-color: var(--color-bg);
+}
+
+#home {
+    max-width: 800px;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 10vh;
+    text-align: center;
+}
+
+#app-name {
+    font-size: 3rem;
+}
+
+/* ROOM LIST */
+
+#room-list {
+    width: 100%;
+    height: 500px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: var(--color-room-list-bg);
+    overflow: auto;
+}
+
+/* ROOM */
+
+.room {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    text-align: left;
+    background-color: var(--color-room-bg);
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.room:hover {
+    cursor: pointer;
+    background-color: var(--color-room-hover);
+}
+
+.room:active {
+    cursor: pointer;
+    background-color: var(--color-room-active);
+}
+
+.room-name {
+    font-size: 1.2rem;
+}
