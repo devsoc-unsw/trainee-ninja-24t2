@@ -40,7 +40,7 @@ body {
 
 /* ROOM */
 
-.room {
+.room-link {
     width: 100%;
     height: 50px;
     padding: 10px;
@@ -51,16 +51,16 @@ body {
     align-items: center;
 }
 
-.room:hover {
+.room-link:hover {
     cursor: pointer;
     background-color: var(--color-room-hover);
 }
 
-.room:active {
+.room-link:active {
     cursor: pointer;
     background-color: var(--color-room-active);
 }
 
-.room-name {
+.room-link-name {
     font-size: 1.2rem;
 }
