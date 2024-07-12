@@ -27,7 +27,7 @@ function RoomList() {
 function RoomLink(props: {name: string}) {
     return (
         <div className='room-link'>
-            <h4 className='room-name'>{props.name}</h4>
+            <h4 className='room-link-name'>{props.name}</h4>
         </div>
     )
 }
