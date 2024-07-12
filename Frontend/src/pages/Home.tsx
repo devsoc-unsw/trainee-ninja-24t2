@@ -10,7 +10,7 @@ function Home() {
 }
 
 function RoomList() {
-    // Array of room names
+    // Array of room names for testing
     const roomNames = [
         'Room 1', 'Room 2', 'Room 3', 'Room 4', 'Room 5'
     ];
@@ -18,15 +18,15 @@ function RoomList() {
     return (
         <div id="room-list">
             {roomNames.map((name, index) => (
-            <Room key={index} name={name} />
+            <RoomLink key={index} name={name} />
             ))}
         </div>
     );
 }
 
-function Room(props: {name: string}) {
+function RoomLink(props: {name: string}) {
     return (
-        <div className='room'>
+        <div className='room-link'>
             <h4 className='room-name'>{props.name}</h4>
         </div>
     )
