@@ -1,5 +1,6 @@
 import './Room.css'
 import Chat from '../components/Chat'
+import WidgetsContainer from '../components/WidgetsContainer'
 
 function Room() {
   return (
@@ -7,6 +8,7 @@ function Room() {
       <WidgetButton/>
       <ExitButton/>
       <Chat/>
+      <WidgetsContainer/>
     </div>
   )
 }
@@ -19,10 +21,12 @@ function WidgetButton() {
 
   return (
     <div id="widget-button" onClick={openWidgetMenu}></div>
-  );
+  )
 }
 
 function ExitButton() {
+  // TODO: Delete room button if owner, potentially in the same container
+
   const exitRoom = () => {
     // TODO: Exit the room and go back to home page
     console.log("Exited room");
@@ -30,7 +34,7 @@ function ExitButton() {
 
   return (
     <div id="exit-button" onClick={exitRoom}>Exit Room</div>
-  );
+  )
 }
   
 export default Room

@@ -15,7 +15,7 @@ function Chat() {
 
     return (
         <form>
-        <textarea id="chat-box" 
+        <textarea id="chat" 
                     name="message" 
                     placeholder='Write something...'
                     value={message} 
@@ -23,7 +23,7 @@ function Chat() {
                     onKeyDown={sendMessage}>
         </textarea>
         </form>
-    );
+    )
 }
 
 export default Chat

@@ -1,0 +1,7 @@
+#widgets-container {
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: var(--room-padding);
+    right: var(--room-padding);
+}
