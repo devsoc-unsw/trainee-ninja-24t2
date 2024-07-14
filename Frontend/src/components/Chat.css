@@ -1,0 +1,28 @@
+:root {
+    --room-padding: 50px;
+    --width-chat-box: 500px;
+    --height-chat-box: 200px;
+    --color-chat-box: #b0b0b0;
+}
+
+#chat-box {
+    width: var(--width-chat-box);
+    height: var(--height-chat-box);
+    background-color: var(--color-chat-box);
+    position: absolute;
+    bottom: var(--room-padding);
+    left: var(--room-padding);
+    border: 3px solid black;
+    border-radius: 30px;
+    padding: 20px;
+    font-size: 1.2rem;
+}
+
+#chat-box::placeholder {
+    color: black;
+}
+
+#chat-box:focus {
+    outline: none !important;
+    box-shadow: 0 0 15px var(--color-chat-box);
+}
