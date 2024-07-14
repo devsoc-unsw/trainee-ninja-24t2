@@ -1,11 +1,10 @@
 :root {
-    --room-padding: 50px;
     --width-chat-box: 500px;
     --height-chat-box: 200px;
     --color-chat-box: #b0b0b0;
 }
 
-#chat-box {
+#chat {
     width: var(--width-chat-box);
     height: var(--height-chat-box);
     background-color: var(--color-chat-box);
@@ -18,11 +17,11 @@
     font-size: 1.2rem;
 }
 
-#chat-box::placeholder {
+#chat::placeholder {
     color: black;
 }
 
-#chat-box:focus {
+#chat:focus {
     outline: none !important;
     box-shadow: 0 0 15px var(--color-chat-box);
 }
