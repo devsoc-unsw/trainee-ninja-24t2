@@ -4,7 +4,10 @@ import Room from './pages/Room'
 
 function App() {
   return (
-    <Home/>
+    <>
+      <Home/>
+      <Room/>
+    </>
   )
 }
 

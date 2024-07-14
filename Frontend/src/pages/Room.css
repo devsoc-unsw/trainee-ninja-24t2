@@ -1,0 +1,81 @@
+/* GENERAL */
+
+:root {
+    --room-padding: 50px;
+    --size-widget-button: 75px;
+    --color-widget-button: #edbd82;
+    --color-widget-button-hover: #d8a96f;
+    --color-widget-button-active: #c38f50;
+    --width-exit-button: 150px;
+    --height-exit-button: 50px;
+    --color-exit-button: #ed8282;
+    --color-exit-button-hover: #e46d6d;
+    --color-exit-button-active: #c55252;
+}
+
+#room-container {
+    width: 100%;
+    height: 100vh;
+    padding: var(--room-padding);
+    position: relative;
+    background-image: url('../assets/library.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* WIDGET BUTTON */
+
+#widget-button {
+    width: var(--size-widget-button);
+    height: var(--size-widget-button);
+    position: absolute;
+    top: var(--room-padding);
+    left: var(--room-padding);
+    background-color: var(--color-widget-button);
+    background-image: url("../assets/widget-button.svg");
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 3px solid black;
+    border-radius: 25px;
+    transition: all 0.5s;
+}
+
+#widget-button:hover {
+    background-color: var(--color-widget-button-hover);
+    cursor: pointer;
+    transform: translate(0, -5%);
+}
+
+#widget-button:active {
+    background-color: var(--color-widget-button-active);
+}
+
+/* EXIT BUTTON */
+
+#exit-button {
+    width: var(--width-exit-button);
+    height: var(--height-exit-button);
+    background-color: var(--color-exit-button);
+    position: absolute;
+    bottom: var(--room-padding);
+    right: var(--room-padding);
+    border: 3px solid black;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    transition: all 0.5s;
+}
+
+#exit-button:hover {
+    background-color: var(--color-exit-button-hover);
+    cursor: pointer;
+    transform: translate(0, -5%);
+}
+
+#exit-button:active {
+    background-color: var(--color-exit-button-active);
+}
