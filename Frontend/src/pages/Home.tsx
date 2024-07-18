@@ -1,4 +1,6 @@
 import './Home.css'
+import { useNavigate } from 'react-router-dom';
+
 
 function Home() {
     return (
@@ -17,17 +19,20 @@ function RoomList() {
 
     return (
         <div id="room-list">
-            {roomNames.map((name, index) => (
-            <RoomLink key={index} name={name} />
+            {roomNames.map((name) => (
+            <RoomLink name={name} />
             ))}
         </div>
     );
 }
 
-function RoomLink(props: {name: string}) {
+function RoomLink({name} : {name : string}) {
+
+    const navigate = useNavigate();
+
     return (
-        <div className='room-link'>
-            <h4 className='room-link-name'>{props.name}</h4>
+        <div className='room-link' onClick={() => navigate(`/room`)}>
+            <h4 className='room-link-name'>{name}</h4>
         </div>
     )
 }
