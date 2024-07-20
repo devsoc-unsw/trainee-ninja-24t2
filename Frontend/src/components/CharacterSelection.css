@@ -1,0 +1,121 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.game-container {
+  background-image: url('../assets/your-background-image.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5rem;
+}
+
+.game-title {
+  font-size: 4.5rem;
+  color: #FFFFFF;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  margin-bottom: 3rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.character-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 3.5rem;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  backdrop-filter: blur(10px);
+  margin-bottom: 3rem;
+}
+
+.character-container {
+  text-align: center;
+}
+
+.character-image {
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+  border: 6px solid #007AFF;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  background-color: #F2F2F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #8E8E93;
+}
+
+.character-name {
+  font-size: 2.2rem;
+  color: #1C1C1E;
+  margin-top: 1.8rem;
+  font-weight: 500;
+}
+
+.arrow {
+  font-size: 3.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 20px;
+  color: #007AFF;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.arrow:hover {
+  transform: scale(1.2);
+  color: #0056b3;
+}
+
+.left-arrow {
+  margin-right: 35px;
+}
+
+.right-arrow {
+  margin-left: 35px;
+}
+
+.start-button {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  background-color: #007AFF;
+  padding: 15px 50px;
+  border: 2px solid #000000;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.start-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.start-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
