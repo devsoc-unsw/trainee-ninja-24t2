@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Kuma API 1.0
+  description: |- 
+    API description for Kuma - currently incomplete.
+  version: 1.0.0
+tags:
+  - name: rooms
+    description: Routes related to rooms
+  # - name: user
+  #   description: Operations about user
+    
+paths:
+  /rooms/join/{roomId}:
+    get:
+      tags:
+        - rooms
+      summary: Join a room specified by roomId
+      description: Specifcs TBD
+      parameters:
+        - name: roomId
+          in: path
+          description: Room id to join
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Room not found
+    
+  /rooms/create:
+    post:
+      tags:
+        - rooms
+      summary: Create a room
+      description: Returns a roomId upon successful creation
+      responses:
+        '200':
+          description: Success
+
+  
+  /rooms/delete/{roomId}:
+    delete:
+      tags:
+        - rooms
+      summary: Join a room specified by roomId
+      description: Specifcs TBD
+      parameters:
+        - name: roomId
+          in: path
+          description: Room id to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Room not found
