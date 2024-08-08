@@ -1,7 +1,6 @@
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
 
-
 function Home() {
     return (
       <div id="home">
