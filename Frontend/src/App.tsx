@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter as Router, Route, Routes, useParams, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Room from './pages/Room'
 // import Home from './pages/Home'
 import { ConnectForm } from './components/ConnectForm';
@@ -20,7 +20,7 @@ function App() {
   }
 
   return (
-    <Router>
+    // <Router>
     	<Routes>
         {/* <Route path="/" element={<Home/>}/> */}
         <Route path='/' element={ <ConnectForm connectToVideo={ handleConnect } /> } />
@@ -31,7 +31,7 @@ function App() {
           </AgoraRTCProvider>
         } />
       </Routes>
-    </Router>
+    // </Router>
   );
 }
 

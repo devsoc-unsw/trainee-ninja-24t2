@@ -12,7 +12,6 @@ export const LiveChat = () => {
     // TODO: HIDE WITH ENVIRONMENT VARIABLE
     // Agora appId and token
     const appId = "7176ccafd79b4363bf7dcea529c747ff";
-    const token = null;
 
     // Get parameters from react-routes
     const {channelName} = useParams();
