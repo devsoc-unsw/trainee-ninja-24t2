@@ -4,8 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 /**
  * This component allows for voice chat via Agora's RTC React SDK.
- * Refer to documentation: 
+ * Refer to documentations: 
  * https://api-ref.agora.io/en/video-sdk/reactjs/2.x/functions/usePublish.html
+ * https://www.agora.io/en/blog/building-a-video-chat-app-using-react-hooks-and-agora/
  */
 
 export const LiveChat = () => {

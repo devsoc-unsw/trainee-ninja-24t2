@@ -1,10 +1,19 @@
+import { ConnectForm } from '../components/ConnectForm';
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
+    const navigate = useNavigate();
+
+    const handleConnect = (channelName: string) => {
+        // On form submit, navigate to new channel
+        navigate(`/via/${channelName}`) 
+    }
+   
     return (
       <div id="home">
-        <h1 id="app-name">Placeholder App Name</h1>
+        <h1 id="app-name">Kuma</h1>
+        <ConnectForm connectToVideo={ handleConnect } />
         <RoomList/>
       </div>
     )
@@ -26,7 +35,6 @@ function RoomList() {
 }
 
 function RoomLink({name} : {name : string}) {
-
     const navigate = useNavigate();
 
     return (
