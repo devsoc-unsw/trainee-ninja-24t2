@@ -29,7 +29,7 @@ body {
   #channelName {
     display: block;
     padding: 15px;
-    margin: 0 0 25px;
+    margin: auto auto 25px;
     width: 50vw;
     max-width: 500px;
   }
