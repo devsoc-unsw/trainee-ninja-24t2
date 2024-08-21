@@ -1,5 +1,6 @@
-import { LocalUser, RemoteUser, useJoin, useLocalMicrophoneTrack, usePublish, useRemoteAudioTracks, useRemoteUsers } from "agora-rtc-react";
+import { useJoin, useLocalMicrophoneTrack, usePublish, useRemoteAudioTracks, useRemoteUsers } from "agora-rtc-react";
 import { useState } from "react";
+import Spline from '@splinetool/react-spline';
 import { useNavigate, useParams } from "react-router-dom";
 
 /**
@@ -58,22 +59,14 @@ export const LiveChat = () => {
             // Initialize each remote stream using RemoteUser component
             remoteUsers.map((user) => (
                 <div key={user.uid} className="remote-video-container">
-                <RemoteUser user={user} /> 
+                {/* <RemoteUser user={user} />  */}
                 </div>
             ))
             }
         </div>
-        <div id='localVideo'>
-            <LocalUser
-                audioTrack={localMicrophoneTrack}
-                videoTrack={null}
-                cameraOn={false}
-                micOn={micOn}
-                playAudio={micOn}
-                playVideo={false}
-                className=''
-            />
-        </div>
+
+        <Spline scene="https://prod.spline.design/QtFOx3krmOa1IFbv/scene.splinecode" />
+        
         <div id="controlsToolbar">
             <div id="mediaControls"> 
                 <button className="btn" onClick={() => setMic(a => !a)}>Mic</button>
