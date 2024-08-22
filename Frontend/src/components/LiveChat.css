@@ -1,0 +1,12 @@
+#scene-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: flex-end;
+}
+
+#voice-container {
+    position: absolute; 
+}
