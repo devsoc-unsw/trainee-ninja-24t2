@@ -2,6 +2,7 @@ import { useJoin, useLocalMicrophoneTrack, usePublish, useRemoteAudioTracks, use
 import { useState } from "react";
 import Spline from '@splinetool/react-spline';
 import { useNavigate, useParams } from "react-router-dom";
+import { VoiceControlBar } from "./VoiceControlBar";
 
 /**
  * This component allows for voice chat via Agora's RTC React SDK.
@@ -22,6 +23,16 @@ export const LiveChat = () => {
     // Voice chat/connection states
     const [activeConnection, setActiveConnection] = useState(true);
     const [micOn, setMic] = useState(true);
+
+    // Function handlers to be passed as props to child component
+    const handleDisconnect = () => {
+        setActiveConnection(false);
+        navigate('/');
+    }
+
+    const handleMute = () => {
+        setMic((a => !a))
+    }
 
     // Hook provided by Agora, utilize the user's microphone
     const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
@@ -52,41 +63,21 @@ export const LiveChat = () => {
         audioTrack.play();
     })
 
+    // TODO: CREATE AN ELEMENT FOR EXIT AND MUTE BUTTONS, PASS IN PROPS
     return (
         <>
-        <div id='remoteVideoGrid'>
-            { 
-            // Initialize each remote stream using RemoteUser component
-            remoteUsers.map((user) => (
-                <div key={user.uid} className="remote-video-container">
-                {/* <RemoteUser user={user} />  */}
-                </div>
-            ))
-            }
-        </div>
-
-        <Spline scene="https://prod.spline.design/QtFOx3krmOa1IFbv/scene.splinecode" />
-        
-        <div id="controlsToolbar">
-            <div id="mediaControls"> 
-                <button className="btn" onClick={() => setMic(a => !a)}>Mic</button>
-            </div>
-        </div>
-        <button id="endConnection" className='' onClick={() => {
-            setActiveConnection(false)
-            navigate('/')
-        }}> Disconnect 
-        </button>
-
-            {/* <div id="room-header">
-                <h1 id="room-name"></h1>
-                <div id="room-header-controls">
-                    <img id="mic-icon" className="control-icon" src="icons/mic-off.svg" />
-                    <img id="leave-icon" className="control-icon" src="icons/leave.svg" />
+            <Spline scene="https://prod.spline.design/QtFOx3krmOa1IFbv/scene.splinecode" />
+            <VoiceControlBar handleDisconnect={handleDisconnect} handleMute={handleMute}></VoiceControlBar>
+            {/* <div id="controlsToolbar">
+                <div id="mediaControls"> 
+                    <button className="btn" onClick={() => setMic(a => !a)}>Mic</button>
                 </div>
             </div>
-            
-            <div id="members"></div> */}
+            <button id="endConnection" className='' onClick={() => {
+                setActiveConnection(false)
+                navigate('/')
+            }}> Disconnect 
+            </button> */}
         </>
     )
 }
