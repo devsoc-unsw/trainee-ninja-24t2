@@ -1,9 +1,9 @@
 import { useJoin, useLocalMicrophoneTrack, usePublish, useRemoteAudioTracks, useRemoteUsers } from "agora-rtc-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Spline from '@splinetool/react-spline';
 import { useNavigate, useParams } from "react-router-dom";
 import { VoiceControlBar } from "./VoiceControlBar";
-import { LocalUser } from "agora-rtc-react";
+import './LiveChat.css'
 
 /**
  * This component allows for voice chat via Agora's RTC React SDK.
@@ -33,7 +33,6 @@ export const LiveChat = () => {
 
     const handleMute = () => {
         setMic((a => !a))
-        console.log("DEBUG", micOn)
     }
 
    
@@ -68,11 +67,14 @@ export const LiveChat = () => {
         audioTrack.play();
     })
 
-    // TODO: CREATE AN ELEMENT FOR EXIT AND MUTE BUTTONS, PASS IN PROPS
     return (
         <>
-            <Spline scene="https://prod.spline.design/QtFOx3krmOa1IFbv/scene.splinecode" />
-            <VoiceControlBar micOn={micOn} handleDisconnect={handleDisconnect} handleMute={handleMute}></VoiceControlBar>
+            <div id="scene-container">
+                <Spline scene="https://prod.spline.design/QtFOx3krmOa1IFbv/scene.splinecode" />
+                <div id="voice-container">
+                    <VoiceControlBar micOn={micOn} handleDisconnect={handleDisconnect} handleMute={handleMute}></VoiceControlBar>
+                </div>
+            </div>
         </>
     )
 }
