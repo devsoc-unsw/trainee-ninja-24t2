@@ -7,15 +7,10 @@ import AgoraRTC, { AgoraRTCProvider, useRTCClient,
 } from "agora-rtc-react";
 
 function App() {
-  const navigate = useNavigate();
 
   // Intialize Agora Client
   const agoraClient = useRTCClient( AgoraRTC.createClient({ codec: "vp8", mode: "rtc" })); // Initialize Agora Client
-
-  // const handleConnect = (channelName: string) => {
-  //   // On form submit, navigate to new channel
-  //   navigate(`/via/${channelName}`) 
-  // }
+  
 
   return (
     // <Router>

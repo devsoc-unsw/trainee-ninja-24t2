@@ -13,15 +13,28 @@ body {
 }
 
 #home {
-    max-width: 800px;
+    display: flex;
+    width: 100vw;
     height: 100vh;
     margin: 0 auto;
-    padding: 10vh;
     text-align: center;
 }
 
+#form-container {
+    flex: 1;
+}
+
+#hero-container {
+    background-color: black;
+    flex: 1;
+}
+
 #app-name {
-    font-size: 3rem;
+    color: white;
+    font-size: 5rem;
+    padding-left: 1em;
+    padding-top: 1em;
+    text-align: left;
 }
 
 /* ROOM LIST */

@@ -1,6 +1,7 @@
 body {
     margin: 0;
     overflow: hidden;
+    font-family: 'Roboto';
   }
   #root {
     height: 100%;

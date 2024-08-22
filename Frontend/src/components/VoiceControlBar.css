@@ -10,19 +10,19 @@
 #mute-button {
     background-color: white;
     border-radius: 50%;
-    padding: 20%;
-    margin: 25%;
-    width: 100%;
-    height: 100%;
+    padding: 40%;
+    margin: 100%;
+    width: 3vw;
+    height: 3vw;
 }
 
 #leave-button {
     background-color: red;
     border-radius: 50%;
-    padding: 20%;
-    margin: 25%;
-    width: 100%;
-    height: 100%;
+    padding: 40%;
+    margin: 100%;
+    width: 3vw;
+    height: 3vw;
 }
 
 #leave-button:hover {

@@ -1,6 +1,7 @@
 import { ConnectForm } from '../components/ConnectForm';
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
+import Spline from '@splinetool/react-spline';
 
 function Home() {
     const navigate = useNavigate();
@@ -12,9 +13,14 @@ function Home() {
    
     return (
       <div id="home">
-        <h1 id="app-name">Kuma</h1>
-        <ConnectForm connectToVideo={ handleConnect } />
-        <RoomList/>
+       
+        <div id='form-container'>
+            <ConnectForm connectToVideo={ handleConnect } />
+        </div>
+        <div id='hero-container'>
+            <Spline scene="https://prod.spline.design/U9O6K7fXziMEU7Wu/scene.splinecode" />
+        </div>
+        {/* <RoomList/> */}
       </div>
     )
 }

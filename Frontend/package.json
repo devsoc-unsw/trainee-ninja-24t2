@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.7",
     "@splinetool/react-spline": "^4.0.0",
     "agora-rtc-react": "^2.2.0",
     "agora-rtc-sdk-ng": "^4.21.0",
