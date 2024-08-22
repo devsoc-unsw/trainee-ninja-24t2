@@ -1,7 +1,6 @@
 import './App.css'
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Room from './pages/Room'
-import { ConnectForm } from './components/ConnectForm';
 import { LiveChat } from './components/LiveChat';
 import Home from './pages/Home';
 import AgoraRTC, { AgoraRTCProvider, useRTCClient,
