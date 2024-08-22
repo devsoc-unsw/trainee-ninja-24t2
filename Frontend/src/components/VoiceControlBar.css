@@ -1,0 +1,36 @@
+#controls-container {
+    border-radius: 5%;
+    width: 10%;
+    height: 25%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+#mute-button {
+    background-color: white;
+    border-radius: 50%;
+    padding: 10%;
+    margin: 5%;
+    width: 40%;
+    height: 40%;
+}
+
+#leave-button {
+    background-color: red;
+    border-radius: 50%;
+    padding: 10%;
+    margin: 5%;
+    width: 40%;
+    height: 40%;
+}
+
+#leave-button:hover {
+    background-color: #f76c6c; 
+    transform: scale(1.05);
+}
+
+#mute-button:hover {
+    background-color: lightgray;
+    transform: scale(1.05);
+}
