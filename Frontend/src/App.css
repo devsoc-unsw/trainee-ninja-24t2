@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Roboto';
+  }
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    /* padding: 2rem; */
+    text-align: center;
+  }
+  
+  .logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+  }
+  .logo:hover {
+    filter: drop-shadow(0 0 2em #099DFD);
+  }
+  
+  .card {
+    padding: 2em;
+  }
+  
+  .read-the-docs {
+    color: #888;
+  }
+  
+  #channelName {
+    display: block;
+    padding: 15px;
+    margin: auto auto 25px;
+    width: 50vw;
+    max-width: 500px;
+  }
+  
+  .card button:hover {
+    border-color: #099DFD;
+    background-color: #099DFD;
+  }
+  
+  #controlsToolbar {
+    bottom: 35px;
+    right: 35px;
+    position: fixed;
+    z-index: 99;
+  }
+  
+  #mediaControls button {
+    margin: 0 5px 7.5px;
+    padding: 10px;
+  }
+  
+  #mediaControls button:hover {
+    border-color: #099DFD;
+  }
+  
+  
+  #endConnection {
+    border-color: red;
+    opacity: 50%;
+  }
+  
+  #endConnection:hover {
+    background-color: red;
+    border-color: white;
+    opacity: 100%;
+  }
+  
+  #localVideo {
+    width: 50vw;
+    aspect-ratio: 16/9;
+    max-width: 480px;
+    min-width: 360px;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    margin: 0;
+  }
+  
+  #remoteVideoGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    /* justify-content: center; */
+    align-items: center;
+  }
+  
+  .remote-video-container {
+    position: relative;
+    width: 25vw;
+    aspect-ratio: 4/3;
+    max-width: 720px;
+    min-width: 360px;
+    overflow: hidden;
+  }
