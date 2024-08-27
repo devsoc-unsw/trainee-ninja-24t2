@@ -40,10 +40,11 @@ body {
 /* ROOM LIST */
 
 #room-list {
-    width: 100%;
+    width: 70%;
     height: 500px;
     position: relative;
-    top: 50%;
+    margin: 0 auto;
+    top: 30%;
     transform: translateY(-50%);
     border: 2px solid black;
     border-radius: 15px;
