@@ -16,11 +16,11 @@ function Home() {
        
         <div id='form-container'>
             <ConnectForm connectToVideo={ handleConnect } />
+            <RoomList/>
         </div>
         <div id='hero-container'>
             <Spline scene="https://prod.spline.design/U9O6K7fXziMEU7Wu/scene.splinecode" />
         </div>
-        {/* <RoomList/> */}
       </div>
     )
 }
