@@ -1,4 +1,6 @@
 import { useState } from "react"
+import "./ConnectForm.css"
+
 /* 
 * Connect  to video callback function.
 * Take in the channelName received from the form element and
