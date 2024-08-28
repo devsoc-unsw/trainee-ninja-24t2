@@ -1,5 +1,19 @@
-#channelName {
-    background-color: black;
+#channel-input {
+    display: block;
+    padding: 15px;
+    margin: auto auto 25px;
+    width: 50vw;
+    max-width: 500px;
     color: white;
-    border-color: white;
+    background-color: black;
+    border: 1px solid white;
+}
+
+#connect-button {
+    width: 8vw;
+    border: 1px solid white;
+    color: black;
+    font-weight: bold;
+    background-color: white;
+    padding: 10px;
 }

@@ -1,7 +1,6 @@
 :root {
     --width-chat-box: 500px;
     --height-chat-box: 200px;
-    --color-chat-box: #b0b0b0;
 }
 
 #chat {
