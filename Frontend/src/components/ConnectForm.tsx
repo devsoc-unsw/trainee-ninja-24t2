@@ -33,12 +33,12 @@ interface ConnectFormProps {
         <form id="join-form" onSubmit={handleConnect}>
             <div className="card">
                 <h1 id="app-name">Kuma</h1>
-                <input type="text" id="channelName" placeholder='Channel Name' value={channelName}
+                <input type="text" id="channel-input" placeholder='Channel Name' value={channelName}
                     onChange={(e) => {
                         setChannelName(e.target.value)
                     }}
                 />
-                <button>Connect</button>
+                <button id="connect-button">Connect</button>
             </div>
         </form>
     )
