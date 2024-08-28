@@ -3,6 +3,8 @@ import { useState } from "react";
 import Spline from '@splinetool/react-spline';
 import { useNavigate, useParams } from "react-router-dom";
 import { VoiceControlBar } from "./VoiceControlBar";
+import { Application } from '@splinetool/runtime';
+
 import './LiveChat.css'
 
 /**
@@ -24,6 +26,11 @@ export const LiveChat = () => {
     // Voice chat/connection states
     const [activeConnection, setActiveConnection] = useState(true);
     const [micOn, setMic] = useState(true);
+
+    // Spline 3D scene constants
+    const [spline, setSpline] = useState<Application>();
+    const objectAvatarId = "92E09126-2A37-482C-B188-3F73E1B9DFAE";
+
 
     // Function handlers to be passed as props to child component
     const handleDisconnect = () => {
@@ -67,13 +74,35 @@ export const LiveChat = () => {
         audioTrack.play();
     })
 
+    // Load spline scene from Spline component
+    function onLoad(spline: Application) {
+        setSpline(spline);
+        // const avatarObj = spline.findObjectById(objectAvatarId);
+        // if (typeof avatarObj != "undefined") {
+        //     avatarObj.position.x += 10;
+        // }
+    }
+
+    function splineOnClick() {
+        console.log("SPLINE DEBUG CLICKED");
+        if (typeof spline != "undefined") {
+            const avatarObj = spline.findObjectByName("computer-2");
+
+            if (typeof avatarObj != "undefined") {
+                console.log("SPLINE DEBUG MOVED", spline.getAllObjects());
+                avatarObj.position.y += 100;
+            }
+        }
+    }
+
     return (
         <>
             <div id="scene-container">
-                <Spline scene="https://prod.spline.design/QtFOx3krmOa1IFbv/scene.splinecode" />
+                <Spline scene="https://prod.spline.design/QtFOx3krmOa1IFbv/scene.splinecode" onLoad={onLoad}/>
                 <div id="voice-container">
                     <VoiceControlBar micOn={micOn} handleDisconnect={handleDisconnect} handleMute={handleMute}></VoiceControlBar>
                 </div>
+                <button type="button" onClick={splineOnClick}>TEST MOVE</button>
             </div>
         </>
     )
