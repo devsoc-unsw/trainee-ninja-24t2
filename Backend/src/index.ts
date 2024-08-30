@@ -8,7 +8,7 @@ import http from "http";
 const app = express();
 dotenv.config();
 
-// setup socket connection
+// setup socket connection + CORS with frontend
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -44,6 +44,6 @@ io.on('connection', (socket) => {
   console.log("user connected");
 })
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`⚡️ Server started on port ${PORT} at http://localhost:${PORT}`);
 });
