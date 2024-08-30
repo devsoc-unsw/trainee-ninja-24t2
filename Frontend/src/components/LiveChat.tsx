@@ -25,6 +25,7 @@ export const LiveChat = () => {
     const navigate = useNavigate();
 
     // Voice chat/connection states
+    const [userConnected, setUserConnected] = useState(false);
     const [activeConnection, setActiveConnection] = useState(true);
     const [micOn, setMic] = useState(true);
 
@@ -97,6 +98,14 @@ export const LiveChat = () => {
             }
         }
     }
+
+    function onUserJoin() {
+        setUserConnected((a => !a));
+        splineOnClick();
+        console.log("New User Joined the room", userConnected);
+    }
+
+    socket.on('userJoin', onUserJoin);
 
     return (
         <>
