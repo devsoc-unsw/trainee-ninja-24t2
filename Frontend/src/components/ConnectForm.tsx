@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { socket } from "../socket"
 import "./ConnectForm.css"
 
 /* 
@@ -16,7 +17,7 @@ interface ConnectFormProps {
     const handleConnect = (e: React.FormEvent<HTMLFormElement>) => {
         // remove whitespace
         const trimmed = channelName.trim();
-
+        
         // invalid input, string empty
         if (trimmed === '') {
             // prevent reload
@@ -24,7 +25,10 @@ interface ConnectFormProps {
             setChannelName('');
             return;
         }
-
+        
+        // connect to backend's socket
+        socket.connect();
+        
         // send channel name back to LiveChat component
         connectToVideo(trimmed);
     }
