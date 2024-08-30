@@ -46,8 +46,12 @@ io.on('connection', (socket) => {
   // when a user joins a room, emit a message to all of the users in that room
   socket.on('joinRoom', (room) => {
     console.log('joined', room);
+
     socket.join(room);
-    socket.broadcast.to(room).emit("userJoin", "New User Joined");
+
+    // send number of clients in the current room back to frontend
+    const clients = io.sockets.adapter.rooms.get(room);
+    io.to(room).emit("userJoin", clients.size);
   })
 })
 

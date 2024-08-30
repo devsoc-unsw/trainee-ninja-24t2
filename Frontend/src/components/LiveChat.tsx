@@ -1,5 +1,5 @@
 import { useJoin, useLocalMicrophoneTrack, usePublish, useRemoteAudioTracks, useRemoteUsers } from "agora-rtc-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spline from '@splinetool/react-spline';
 import { useNavigate, useParams } from "react-router-dom";
 import { VoiceControlBar } from "./VoiceControlBar";
@@ -25,7 +25,7 @@ export const LiveChat = () => {
     const navigate = useNavigate();
 
     // Voice chat/connection states
-    const [userConnected, setUserConnected] = useState(false);
+    const [numUserConnected, setNumUserConnected] = useState(1);
     const [activeConnection, setActiveConnection] = useState(true);
     const [micOn, setMic] = useState(true);
 
@@ -81,30 +81,37 @@ export const LiveChat = () => {
     // Load spline scene from Spline component
     function onLoad(spline: Application) {
         setSpline(spline);
-        // const avatarObj = spline.findObjectById(objectAvatarId);
-        // if (typeof avatarObj != "undefined") {
-        //     avatarObj.position.x += 10;
-        // }
     }
 
-    function splineOnClick() {
-        console.log("SPLINE DEBUG CLICKED");
+    // Spawn new user's avatar in the 3D scene
+    function spawnAvatar() {
+        console.log("avatar spawn");
         if (typeof spline != "undefined") {
-            const avatarObj = spline.findObjectByName("computer-2");
-
+            console.log("DO SOMETHING");
+            const avatarObj = spline.findObjectById(objectAvatarId);
             if (typeof avatarObj != "undefined") {
-                console.log("SPLINE DEBUG MOVED", spline.getAllObjects());
-                avatarObj.position.y += 100;
+                avatarObj.position.y = -80;
             }
         }
     }
 
-    function onUserJoin() {
-        setUserConnected((a => !a));
-        splineOnClick();
-        console.log("New User Joined the room", userConnected);
+    // Handle socket connection when another user joins the room
+    function onUserJoin(userNum: any) {
+        setNumUserConnected(userNum);
+        console.log(userNum);
+        if (userNum > 1) {
+            spawnAvatar();
+        }
+        console.log("New User Joined the room", userNum);
     }
 
+    // Update spline element when mounting
+    useEffect(() => {
+        if (numUserConnected > 1) {
+            spawnAvatar();
+        }
+    }, [spline]);
+    
     socket.on('userJoin', onUserJoin);
 
     return (
@@ -114,7 +121,6 @@ export const LiveChat = () => {
                 <div id="voice-container">
                     <VoiceControlBar micOn={micOn} handleDisconnect={handleDisconnect} handleMute={handleMute}></VoiceControlBar>
                 </div>
-                <button type="button" onClick={splineOnClick}>TEST MOVE</button>
             </div>
         </>
     )
