@@ -4,6 +4,7 @@ import Spline from '@splinetool/react-spline';
 import { useNavigate, useParams } from "react-router-dom";
 import { VoiceControlBar } from "./VoiceControlBar";
 import { Application } from '@splinetool/runtime';
+import { socket } from "../socket";
 
 import './LiveChat.css'
 
@@ -34,6 +35,8 @@ export const LiveChat = () => {
 
     // Function handlers to be passed as props to child component
     const handleDisconnect = () => {
+        // Disconnect from Agora and backend socket
+        socket.disconnect();
         setActiveConnection(false);
         navigate('/');
     }

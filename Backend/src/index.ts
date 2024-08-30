@@ -10,21 +10,27 @@ dotenv.config();
 
 // setup socket connection
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173"
+  }
+});
 
-const PORT = process.env.PORT || 3000;
-const MONGOURL: string = process.env.MONGO_URL || '';
+// const PORT = process.env.PORT || 3000;
+const PORT = 3000;
+
+// const MONGOURL: string = process.env.MONGO_URL || '';
 
 // start up server and connect to database
-mongoose
-  .connect(MONGOURL)
-  .then(() => {
-    console.log(`Connected to MongoDB: ${MONGOURL}`);
-    app.listen(PORT, () => {
-      console.log(`⚡️ Server started on port ${PORT} at http://localhost:${PORT}`);
-    });
-  })
-  .catch((error) => console.log(error));
+// mongoose
+//   .connect(MONGOURL)
+//   .then(() => {
+//     console.log(`Connected to MongoDB: ${MONGOURL}`);
+//     app.listen(PORT, () => {
+//       console.log(`⚡️ Server started on port ${PORT} at http://localhost:${PORT}`);
+//     });
+//   })
+//   .catch((error) => console.log(error));
 
 app.get('/', async (req, res) => {
   res.send('hi');
@@ -37,3 +43,7 @@ app.get('/add/:username', (req, res) => {
 io.on('connection', (socket) => {
   console.log("user connected");
 })
+
+app.listen(PORT, () => {
+  console.log(`⚡️ Server started on port ${PORT} at http://localhost:${PORT}`);
+});
