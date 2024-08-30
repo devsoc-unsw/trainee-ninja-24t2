@@ -26,9 +26,9 @@ interface ConnectFormProps {
             return;
         }
         
-        // connect to backend's socket
-        socket.connect();
-        
+        // connect to backend's socket, join a room
+        socket.emit("joinRoom", trimmed);
+
         // send channel name back to LiveChat component
         connectToVideo(trimmed);
     }
