@@ -2,9 +2,9 @@ import { useJoin, useLocalMicrophoneTrack, usePublish, useRemoteAudioTracks, use
 import { useEffect, useState } from "react";
 import Spline from '@splinetool/react-spline';
 import { useNavigate, useParams } from "react-router-dom";
-import { VoiceControlBar } from "./VoiceControlBar";
+import { VoiceControlBar } from "../VoiceControlBar/VoiceControlBar";
 import { Application } from '@splinetool/runtime';
-import { socket } from "../socket";
+import { socket } from "../../socket";
 
 import './LiveChat.css'
 
