@@ -85,9 +85,7 @@ export const LiveChat = () => {
 
     // Spawn new user's avatar in the 3D scene
     function spawnAvatar() {
-        console.log("avatar spawn");
         if (typeof spline != "undefined") {
-            console.log("DO SOMETHING");
             const avatarObj = spline.findObjectById(objectAvatarId);
             if (typeof avatarObj != "undefined") {
                 avatarObj.position.y = -80;
@@ -95,14 +93,30 @@ export const LiveChat = () => {
         }
     }
 
+    // Destroy new user's avatar in the 3D scene
+    function destroyAvatar() {
+        if (typeof spline != "undefined") {
+            const avatarObj = spline.findObjectById(objectAvatarId);
+            if (typeof avatarObj != "undefined") {
+                avatarObj.position.y = -500;
+            }
+        }
+    }
     // Handle socket connection when another user joins the room
-    function onUserJoin(userNum: any) {
+    function onUserJoin(userNum: number) {
         setNumUserConnected(userNum);
-        console.log(userNum);
         if (userNum > 1) {
             spawnAvatar();
         }
-        console.log("New User Joined the room", userNum);
+    }
+
+    // Handle socket connection when another user leaves the room
+    function onUserLeave(userNum: number) {
+        setNumUserConnected(userNum);
+        console.log('user disconnect', userNum);
+        if (userNum <= 1) {
+            destroyAvatar();
+        }
     }
 
     // Update spline element when mounting
@@ -112,7 +126,9 @@ export const LiveChat = () => {
         }
     }, [spline]);
     
+
     socket.on('userJoin', onUserJoin);
+    socket.on('userLeave', onUserLeave);
 
     return (
         <>
