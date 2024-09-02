@@ -1,6 +1,6 @@
-import micIcon from '../assets/microphone.svg'
-import muteIcon from '../assets/microphone-slash.svg'
-import leaveIcon from '../assets/phone-slash.svg'
+import micIcon from '../../assets/microphone.svg'
+import muteIcon from '../../assets/microphone-slash.svg';
+import leaveIcon from '../../assets/phone-slash.svg'
 import './VoiceControlBar.css'
 
 interface VoiceControlBarProps {
