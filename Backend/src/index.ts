@@ -45,4 +45,40 @@ io.on('connection', (socket) => {
     const clients = io.sockets.adapter.rooms.get(roomId);
     io.to(roomId).emit("userJoin", clients.size);
   });
+
+  // when a user joins a room, emit a message to all of the users in that room
+  socket.on('joinRoom', (room) => {
+    console.log('joined', room);
+
+    socket.join(room);
+
+    // send number of clients in the current room back to frontend
+    const clients = io.sockets.adapter.rooms.get(room);
+    io.to(room).emit("userJoin", clients.size);
+  })
+
+  // handle user disconnect
+  socket.on('disconnecting', () => {
+    const rooms = socket.rooms;
+
+    // convert set of rooms into array
+    const leftRoom = [...rooms][1];
+    socket.leave(leftRoom);
+
+    // broadcast to all clients in the given room that a user has disconnected
+    const clients = io.sockets.adapter.rooms.get(leftRoom);
+    if (typeof clients != 'undefined') {
+      console.log('user disconnecting', clients);
+      io.to(leftRoom).emit("userLeave", clients.size);
+    }
+    else {
+      // no users left in room
+      console.log('user disconnecting', clients);
+      io.to(leftRoom).emit("userLeave", 0);
+    }
+  })
+})
+
+http.listen(PORT, () => {
+  console.log(`⚡️ Server started on port ${PORT} at http://localhost:${PORT}`);
 });

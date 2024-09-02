@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { socket } from "../socket";
 import "./ConnectForm.css";
 
 interface ConnectFormProps {
@@ -21,6 +22,9 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
             alert('Please enter a valid room ID');
             return;
         }
+        
+        // connect to backend's socket, join a room
+        socket.emit("joinRoom", trimmed);
 
         if (mode === 'join') {
             connectToVideo(trimmed);
