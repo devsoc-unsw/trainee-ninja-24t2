@@ -5,6 +5,10 @@ interface ConnectFormProps {
     connectToVideo: (channelName: string) => void;
 }
 
+const createRoom = () => {
+    
+}
+
 export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
     const [channelName, setChannelName] = useState('');
     const [mode, setMode] = useState<'join' | 'create' | null>(null);
