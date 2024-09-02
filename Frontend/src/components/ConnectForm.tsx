@@ -2,17 +2,46 @@ import { useState } from "react";
 import { socket } from "../socket";
 import "./ConnectForm.css";
 
+const PORT = 8000;
+
 interface ConnectFormProps {
     connectToVideo: (channelName: string) => void;
 }
 
-const createRoom = () => {
-    
+interface CreateRoomResponse {
+    roomId: string;
+    users: string[];
+}
+
+export async function createRoom(): Promise<CreateRoomResponse> {
+    const response = await fetch(`http://localhost:${PORT}/create`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to create room');
+    }
+
+    const data: CreateRoomResponse = await response.json();
+    return data;
 }
 
 export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
     const [channelName, setChannelName] = useState('');
     const [mode, setMode] = useState<'join' | 'create' | null>(null);
+
+    const handleCreateRoom = async () => {
+        try {
+            const result = await createRoom();
+            console.log('Room created:', result);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     const handleConnect = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,12 +54,7 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
         
         // connect to backend's socket, join a room
         socket.emit("joinRoom", trimmed);
-
-        if (mode === 'join') {
-            connectToVideo(trimmed);
-        } else if (mode === 'create') {
-            // createNewRoom();
-        }
+        connectToVideo(trimmed);
     };
 
     // goes back to homescreen
@@ -44,7 +68,10 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
             <h1 id="app-name">Kuma</h1>
             {!mode && (
                 <div className="button-group">
-                    <button id="create-button" onClick={() => setMode('create')}>Create New Room</button>
+                    <button id="create-button" onClick={() => {
+                        setMode('create');
+                        handleCreateRoom();
+                    }}>Create New Room</button>
                     <button id="join-button" onClick={() => setMode('join')}>Join Existing Room</button>
                 </div>
             )}
