@@ -53,6 +53,27 @@ io.on('connection', (socket) => {
     const clients = io.sockets.adapter.rooms.get(room);
     io.to(room).emit("userJoin", clients.size);
   })
+
+  // handle user disconnect
+  socket.on('disconnecting', () => {
+    const rooms = socket.rooms;
+
+    // convert set of rooms into array
+    const leftRoom = [...rooms][1];
+    socket.leave(leftRoom);
+
+    // broadcast to all clients in the given room that a user has disconnected
+    const clients = io.sockets.adapter.rooms.get(leftRoom);
+    if (typeof clients != 'undefined') {
+      console.log('user disconnecting', clients);
+      io.to(leftRoom).emit("userLeave", clients.size);
+    }
+    else {
+      // no users left in room
+      console.log('user disconnecting', clients);
+      io.to(leftRoom).emit("userLeave", 0);
+    }
+  })
 })
 
 server.listen(PORT, () => {
