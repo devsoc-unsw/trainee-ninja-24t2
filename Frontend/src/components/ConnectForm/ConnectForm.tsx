@@ -27,6 +27,7 @@ interface ConnectFormProps {
         }
         
         // connect to backend's socket, join a room
+        socket.connect();
         socket.emit("joinRoom", trimmed);
 
         // send channel name back to LiveChat component
