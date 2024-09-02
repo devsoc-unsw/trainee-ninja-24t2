@@ -1,19 +1,44 @@
-#channel-input {
-    display: block;
-    padding: 15px;
-    margin: auto auto 25px;
-    width: 50vw;
-    max-width: 500px;
-    color: white;
-    background-color: black;
-    border: 1px solid white;
+button {
+  margin: 10px;
+  width: 8vw;
+  border: 1px solid white;
+  color: black;
+  font-weight: bold;
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
 }
 
-#connect-button {
-    width: 8vw;
-    border: 1px solid white;
-    color: black;
-    font-weight: bold;
-    background-color: white;
-    padding: 10px;
+button:hover {
+  background-color: #f0f0f0; /* Slightly darker background on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Add a soft shadow */
+}
+
+button:active {
+  background-color: #e0e0e0; /* Darker background when pressed */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow size */
+  transform: scale(0.98); /* Slightly scale down the button */
+}
+
+#channel-input {
+  display: block;
+  padding: 15px;
+  margin: auto auto 25px;
+  width: 50vw;
+  max-width: 500px;
+  color: white;
+  background-color: black;
+  border: 1px solid white;
+  transition: border-color 0.3s ease;
+}
+
+#channel-input:focus {
+  border-color: #ff9800; /* Change border color on focus */
+}
+
+.card {
+  display: inline-block;
+  align-items: center;
 }
