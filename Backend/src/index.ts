@@ -4,6 +4,8 @@ import dotenv from "dotenv"
 import createNewRoom from "./newRoom.js";
 import { Server } from "socket.io";
 import httpModule from 'http';
+import cors from "cors";
+import Room from "./room.js";
 
 const app = express();
 dotenv.config();
@@ -11,12 +13,13 @@ dotenv.config();
 // setup socket connection
 const http = httpModule.createServer(app);
 const io = new Server(http, {cors: {origin: "*"}});
+app.use(cors({ origin: "*" }));
 
 const PORT = process.env.PORT || 3000;
-const SOCKET = process.env.SOCKET || 8000;
+const SOCKET = process.env.SOCKET || 7000;
 const MONGOURL: string = process.env.MONGO_URL || '';
 
-// start up server and connect to database
+// start up server and connect to databasex
 mongoose
   .connect(MONGOURL)
   .then(() => {
@@ -36,49 +39,70 @@ app.post('/create', (req, res) => {
   createNewRoom(req, res);
 });
 
+// route for validating whether a room with a given roomId exists
+app.get("/validateRoom/:roomId", async (req, res) => {
+  const { roomId } = req.params;
+  try {
+    const room = await Room.findOne({ roomId: roomId });
+    if (room) {
+      return res.status(200).json({ valid: true, userCount: room.users.length });
+    } else {
+      return res.status(200).json({ valid: false, userCount: 0 });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+});
+
 io.on('connection', (socket) => {
   console.log("user connected");
-  socket.on('joinRoom', (roomId) => {
+
+  // Handle user joining a room
+  socket.on('joinRoom', async (roomId, username) => {
     socket.join(roomId);
     console.log(roomId);
 
-    const clients = io.sockets.adapter.rooms.get(roomId);
-    io.to(roomId).emit("userJoin", clients.size);
+    try {
+      const room = await Room.findOne({ roomId: roomId });
+      if (room && room.users.length < 2) {
+        room.users.push(username); // Add user to room
+        await room.save(); // Save changes to the database
+
+        const clients = io.sockets.adapter.rooms.get(roomId);
+        io.to(roomId).emit("userJoin", clients.size);
+      } else {
+        socket.emit("joinError", "Room is full or does not exist");
+      }
+    } catch (error) {
+      console.error('Error joining room:', error);
+      socket.emit("joinError", "There was an error joining the room");
+    }
   });
 
-  // when a user joins a room, emit a message to all of the users in that room
-  socket.on('joinRoom', (room) => {
-    console.log('joined', room);
-
-    socket.join(room);
-
-    // send number of clients in the current room back to frontend
-    const clients = io.sockets.adapter.rooms.get(room);
-    io.to(room).emit("userJoin", clients.size);
-  })
-
-  // handle user disconnect
-  socket.on('disconnecting', () => {
+  // Handle user disconnecting
+  socket.on('disconnecting', async () => {
     const rooms = socket.rooms;
+    const leftRoom = [...rooms][1]; // Convert set of rooms into array
 
-    // convert set of rooms into array
-    const leftRoom = [...rooms][1];
-    socket.leave(leftRoom);
+    try {
+      const room = await Room.findOne({ roomId: leftRoom });
+      if (room) {
+        room.users = room.users.filter(user => user !== socket.id); // Remove user from room
+        await room.save(); // Save changes to the database
 
-    // broadcast to all clients in the given room that a user has disconnected
-    const clients = io.sockets.adapter.rooms.get(leftRoom);
-    if (typeof clients != 'undefined') {
-      console.log('user disconnecting', clients);
-      io.to(leftRoom).emit("userLeave", clients.size);
+        socket.leave(leftRoom);
+
+        const clients = io.sockets.adapter.rooms.get(leftRoom);
+        if (typeof clients !== 'undefined') {
+          console.log('user disconnecting', clients);
+          io.to(leftRoom).emit("userLeave", clients.size);
+        } else {
+          console.log('user disconnecting', clients);
+          io.to(leftRoom).emit("userLeave", 0);
+        }
+      }
+    } catch (error) {
+      console.error('Error disconnecting:', error);
     }
-    else {
-      // no users left in room
-      console.log('user disconnecting', clients);
-      io.to(leftRoom).emit("userLeave", 0);
-    }
-  })
-})
-
-http.listen(PORT, () => {
-  console.log(`⚡️ Server started on port ${PORT} at http://localhost:${PORT}`);
+  });
 });
