@@ -12,7 +12,7 @@ interface CreateRoomResponse {
     users: string[];
 }
 
-export async function createRoom(): Promise<CreateRoomResponse> {
+export async function createRoomRequest(): Promise<CreateRoomResponse> {
     const response = await fetch(`http://localhost:${PORT}/create`, {
         method: 'POST',
         headers: {
@@ -29,14 +29,20 @@ export async function createRoom(): Promise<CreateRoomResponse> {
 }
  
 export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
-    const [channelName, setChannelName] = useState('');
+    const [roomId, setRoomId] = useState('');
     const [mode, setMode] = useState<'join' | 'name' | null>(null);
     const [nameInput, setNameInput] = useState('');
 
     const handleCreateRoom = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        
+        if (nameInput.trim() == '') {
+            alert('Please enter a valid username');
+            return;
+        }
+
         try {
-            const result = await createRoom();
+            const result = await createRoomRequest();
             console.log('Room created:', result);
             connectToVideo(result.roomId, nameInput);  // Connect to the video channel
         } catch (error) {
@@ -46,19 +52,20 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
 
     const handleConnect = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const trimmed = channelName.trim();
+        const trimmedName = nameInput.trim();
+        const trimmedId = roomId.trim();
 
-        if (trimmed === '' && mode === 'join') {
-            alert('Please enter a valid room ID');
+        if (trimmedName === '' || (trimmedId === '' && mode === 'join')) {
+            alert('Please fill all fields');
             return;
         }
 
         // Validate the roomId
-        const response = await fetch(`http://localhost:${PORT}/validateRoom/${trimmed}`);
+        const response = await fetch(`http://localhost:${PORT}/validateRoom/${trimmedId}`);
         const result = await response.json();
 
         if (result.valid && result.userCount < 2) {
-            connectToVideo(trimmed, nameInput);  // Connect to the video channel
+            connectToVideo(trimmedId, nameInput);  // Connect to the video channel
         } else if (result.valid && result.userCount >= 2) {
             alert('This room is currently full');
         } else {
@@ -68,7 +75,7 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
 
     const handleBack = () => {
         setMode(null);  // Reset the mode to go back to the initial state
-        setChannelName('');  // Clear the input field
+        setRoomId('');  // Clear the input field
     };
 
     return (
@@ -104,12 +111,12 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
                         type="text"
                         id="channel-input-create"
                         placeholder="Enter Room ID"
-                        value={channelName}
+                        value={roomId}
                         onChange={(e) => {
                             const input = e.target.value;
                             // Remove any non-alphabetic characters and limit to 4 characters
                             const filteredInput = input.replace(/[^a-zA-Z]/g, '').slice(0, 4);
-                            setChannelName(filteredInput);
+                            setRoomId(filteredInput);
                         }}
                     />
                     <input

@@ -96,7 +96,6 @@ io.on('connection', (socket: CustomSocket) => {
         await room.save(); // Save changes to the database
         console.log(`${socket.username} left ${socket.roomId}`);
         socket.leave(leftRoom);
-        console.log()
 
         const clients = io.sockets.adapter.rooms.get(leftRoom);
         if (typeof clients !== 'undefined') {
