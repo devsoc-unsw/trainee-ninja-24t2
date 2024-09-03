@@ -1,6 +1,6 @@
 import './Room.css'
-import Chat from '../components/Chat'
-import WidgetsContainer from '../components/WidgetsContainer'
+import Chat from '../../components/Chat/Chat'
+import WidgetsContainer from '../../components/WidgetsContainer/WidgetsContainer'
 
 function Room() {
   return (

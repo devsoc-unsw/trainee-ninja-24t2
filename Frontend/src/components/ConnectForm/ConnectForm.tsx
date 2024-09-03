@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { socket } from "../socket";
-import "./ConnectForm.css";
+import { useState } from "react"
+import { socket } from "../../socket"
+import "./ConnectForm.css"
 
 const PORT = 8000;
 
@@ -52,14 +52,15 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
             alert('Please enter a valid room ID');
             return;
         }
-        
+
         // Validate the roomId
         const response = await fetch(`http://localhost:${PORT}/validateRoom/${trimmed}`);
         const result = await response.json();
 
         if (result.valid && result.userCount < 2) {
             connectToVideo(trimmed);  // Connect to the video channel
-            socket.emit('joinRoom', trimmed);  // Join the socket room
+            socket.connect(); // Join the socket room
+            socket.emit('joinRoom', trimmed);  
         } else if (result.valid && result.userCount >= 2) {
             alert('This room is currently full');
         } else {
