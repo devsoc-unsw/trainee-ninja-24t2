@@ -6,6 +6,7 @@ import { Server } from "socket.io";
 import httpModule from 'http';
 import cors from "cors";
 import Room from "./room.js";
+import { Socket } from "socket.io";
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,11 @@ app.use(cors({ origin: "*" }));
 const PORT = process.env.PORT || 3000;
 const SOCKET = process.env.SOCKET || 7000;
 const MONGOURL: string = process.env.MONGO_URL || '';
+
+interface CustomSocket extends Socket {
+  username?: string;
+  roomId?: string;
+}
 
 // start up server and connect to databasex
 mongoose
@@ -54,22 +60,21 @@ app.get("/validateRoom/:roomId", async (req, res) => {
   }
 });
 
-io.on('connection', (socket) => {
-  console.log("user connected");
-
+io.on('connection', (socket: CustomSocket) => {
   // Handle user joining a room
   socket.on('joinRoom', async (roomId, username) => {
     socket.join(roomId);
-    console.log(roomId);
+    socket.username = username;
+    socket.roomId = roomId;
+    console.log(`${username} joined ${roomId}`);
 
     try {
       const room = await Room.findOne({ roomId: roomId });
       if (room && room.users.length < 2) {
+        socket.join(roomId);
+        io.to(roomId).emit("userJoin", room.users.length + 1);
         room.users.push(username); // Add user to room
         await room.save(); // Save changes to the database
-
-        const clients = io.sockets.adapter.rooms.get(roomId);
-        io.to(roomId).emit("userJoin", clients.size);
       } else {
         socket.emit("joinError", "Room is full or does not exist");
       }
@@ -87,10 +92,11 @@ io.on('connection', (socket) => {
     try {
       const room = await Room.findOne({ roomId: leftRoom });
       if (room) {
-        room.users = room.users.filter(user => user !== socket.id); // Remove user from room
+        room.users = room.users.filter(user => user !== socket.username); // Remove user from room
         await room.save(); // Save changes to the database
-
+        console.log(`${socket.username} left ${socket.roomId}`);
         socket.leave(leftRoom);
+        console.log()
 
         const clients = io.sockets.adapter.rooms.get(leftRoom);
         if (typeof clients !== 'undefined') {

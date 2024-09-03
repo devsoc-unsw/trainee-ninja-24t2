@@ -1,11 +1,10 @@
 import { useState } from "react"
-import { socket } from "../../socket"
 import "./ConnectForm.css"
 
 const PORT = 8000;
 
 interface ConnectFormProps {
-    connectToVideo: (channelName: string) => void;
+    connectToVideo: (roomId: string, username: string) => void;
 }
 
 interface CreateRoomResponse {
@@ -28,17 +27,18 @@ export async function createRoom(): Promise<CreateRoomResponse> {
     const data: CreateRoomResponse = await response.json();
     return data;
 }
-
+ 
 export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
     const [channelName, setChannelName] = useState('');
-    const [mode, setMode] = useState<'join' | null>(null);
+    const [mode, setMode] = useState<'join' | 'name' | null>(null);
+    const [nameInput, setNameInput] = useState('');
 
-    const handleCreateRoom = async () => {
+    const handleCreateRoom = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
             const result = await createRoom();
             console.log('Room created:', result);
-            setChannelName(result.roomId);  // Automatically set the room ID
-            connectToVideo(result.roomId);  // Connect to the video channel
+            connectToVideo(result.roomId, nameInput);  // Connect to the video channel
         } catch (error) {
             console.error('Error:', error);
         }
@@ -58,9 +58,7 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
         const result = await response.json();
 
         if (result.valid && result.userCount < 2) {
-            connectToVideo(trimmed);  // Connect to the video channel
-            socket.connect(); // Join the socket room
-            socket.emit('joinRoom', trimmed);  
+            connectToVideo(trimmed, nameInput);  // Connect to the video channel
         } else if (result.valid && result.userCount >= 2) {
             alert('This room is currently full');
         } else {
@@ -78,17 +76,33 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
             <h1 id="app-name">Kuma</h1>
             {!mode && (
                 <div className="button-group">
-                    <button id="create-button" onClick={() => {
-                        handleCreateRoom();
-                    }}>Create New Room</button>
+                    <button id="create-button" onClick={() => setMode('name')}>Create New Room</button>
                     <button id="join-button" onClick={() => setMode('join')}>Join Existing Room</button>
                 </div>
+            )}
+            {mode === 'name' && (
+                <form id="join-form" onSubmit={handleCreateRoom}>
+                    <input
+                        type="text"
+                        id="username-input"
+                        placeholder="Enter Username"
+                        value={nameInput}
+                        onChange={(e) => {
+                            const input = e.target.value;
+                            setNameInput(input);
+                        }}
+                    />
+                    <div className="button-group">
+                        <button type="submit">Create Room</button>
+                        <button id="back-button" type="button" onClick={handleBack}>Back</button>
+                    </div>
+                </form>
             )}
             {mode === 'join' && (
                 <form id="join-form" onSubmit={handleConnect}>
                     <input
                         type="text"
-                        id="channel-input"
+                        id="channel-input-create"
                         placeholder="Enter Room ID"
                         value={channelName}
                         onChange={(e) => {
@@ -96,6 +110,16 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
                             // Remove any non-alphabetic characters and limit to 4 characters
                             const filteredInput = input.replace(/[^a-zA-Z]/g, '').slice(0, 4);
                             setChannelName(filteredInput);
+                        }}
+                    />
+                    <input
+                        type="text"
+                        id="username-input-join"
+                        placeholder="Enter Username"
+                        value={nameInput}
+                        onChange={(e) => {
+                            const input = e.target.value;
+                            setNameInput(input);
                         }}
                     />
                     <div className="button-group">

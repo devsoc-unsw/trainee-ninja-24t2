@@ -36,5 +36,9 @@ function ExitButton() {
     <div id="exit-button" onClick={exitRoom}>Exit Room</div>
   )
 }
+
+function roomId() {
+    return  localStorage.getItem('roomId');
+}
   
 export default Room
