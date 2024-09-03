@@ -1,4 +1,4 @@
-import { ConnectForm } from '../components/ConnectForm';
+import { ConnectForm } from '../../components/ConnectForm/ConnectForm';
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
 import Spline from '@splinetool/react-spline';
