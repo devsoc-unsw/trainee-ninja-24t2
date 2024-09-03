@@ -22,7 +22,7 @@ button:active {
   transform: scale(0.98); /* Slightly scale down the button */
 }
 
-#channel-input {
+input {
   display: block;
   padding: 15px;
   margin: auto auto 25px;

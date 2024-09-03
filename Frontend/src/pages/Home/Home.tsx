@@ -2,13 +2,17 @@ import { ConnectForm } from '../../components/ConnectForm/ConnectForm';
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
 import Spline from '@splinetool/react-spline';
+import { socket } from "../../socket"
 
 function Home() {
     const navigate = useNavigate();
 
-    const handleConnect = (channelName: string) => {
+    const handleConnect = (roomId: string, username: string) => {
+        socket.connect(); // Join the socket room
+        socket.emit('joinRoom', roomId, username);  
+        localStorage.setItem('roomId', roomId);
         // On form submit, navigate to new channel
-        navigate(`/via/${channelName}`) 
+        navigate(`/via/${roomId}`);
     }
    
     return (
