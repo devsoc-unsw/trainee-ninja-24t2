@@ -3,9 +3,7 @@ import { Request, Response } from "express";
 import generateRandomString from "./randomId.js";
 
 async function createNewRoom(req: Request, res: Response) {
-  const username: string = req.params.username;
   const roomId = generateRandomString();
-  console.log(username);
 
   try {
     // Check if a room with the same roomId already exists
@@ -17,7 +15,7 @@ async function createNewRoom(req: Request, res: Response) {
     // Create a new room since no duplicate was found
     const room = new Room({
       roomId: roomId,
-      users: [username]
+      users: []
     });
 
     const result = await room.save();

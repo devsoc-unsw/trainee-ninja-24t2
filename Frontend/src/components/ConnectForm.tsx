@@ -31,19 +31,20 @@ export async function createRoom(): Promise<CreateRoomResponse> {
 
 export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
     const [channelName, setChannelName] = useState('');
-    const [mode, setMode] = useState<'join' | 'create' | null>(null);
+    const [mode, setMode] = useState<'join' | null>(null);
 
     const handleCreateRoom = async () => {
         try {
             const result = await createRoom();
             console.log('Room created:', result);
-
+            setChannelName(result.roomId);  // Automatically set the room ID
+            connectToVideo(result.roomId);  // Connect to the video channel
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
-    const handleConnect = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleConnect = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const trimmed = channelName.trim();
 
@@ -52,15 +53,23 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
             return;
         }
         
-        // connect to backend's socket, join a room
-        socket.emit("joinRoom", trimmed);
-        connectToVideo(trimmed);
+        // Validate the roomId
+        const response = await fetch(`http://localhost:${PORT}/validateRoom/${trimmed}`);
+        const result = await response.json();
+
+        if (result.valid && result.userCount < 2) {
+            connectToVideo(trimmed);  // Connect to the video channel
+            socket.emit('joinRoom', trimmed);  // Join the socket room
+        } else if (result.valid && result.userCount >= 2) {
+            alert('This room is currently full');
+        } else {
+            alert('Invalid Room ID');
+        }
     };
 
-    // goes back to homescreen
     const handleBack = () => {
-        setMode(null); // Reset the mode to go back to the initial state
-        setChannelName(''); // Clear the input field
+        setMode(null);  // Reset the mode to go back to the initial state
+        setChannelName('');  // Clear the input field
     };
 
     return (
@@ -69,7 +78,6 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
             {!mode && (
                 <div className="button-group">
                     <button id="create-button" onClick={() => {
-                        setMode('create');
                         handleCreateRoom();
                     }}>Create New Room</button>
                     <button id="join-button" onClick={() => setMode('join')}>Join Existing Room</button>
@@ -90,15 +98,10 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
                         }}
                     />
                     <div className="button-group">
-                        <button>Join Room</button>
+                        <button type="submit">Join Room</button>
                         <button id="back-button" type="button" onClick={handleBack}>Back</button>
                     </div>
                 </form>
-            )}
-            {mode === 'create' && (
-                <div>
-                    <button id="back-button" type="button" onClick={handleBack}>Back</button>
-                </div>
             )}
         </div>
     );
