@@ -1,8 +1,8 @@
 import './App.css'
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import Room from './pages/Room'
-import { LiveChat } from './components/LiveChat';
-import Home from './pages/Home';
+import Room from './pages/Room/Room';
+import { LiveChat } from './components/LiveChat/LiveChat';
+import Home from './pages/Home/Home';
 import AgoraRTC, { AgoraRTCProvider, useRTCClient,
 } from "agora-rtc-react";
 
