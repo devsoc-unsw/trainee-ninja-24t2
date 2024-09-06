@@ -25,18 +25,6 @@ body {
     padding: 2em;
   }
   
-  .read-the-docs {
-    color: #888;
-  }
-  
-  #channelName {
-    display: block;
-    padding: 15px;
-    margin: auto auto 25px;
-    width: 50vw;
-    max-width: 500px;
-  }
-  
   .card button:hover {
     border-color: #099DFD;
     background-color: #099DFD;
@@ -79,21 +67,4 @@ body {
     right: 25px;
     bottom: 25px;
     margin: 0;
-  }
-  
-  #remoteVideoGrid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    /* justify-content: center; */
-    align-items: center;
-  }
-  
-  .remote-video-container {
-    position: relative;
-    width: 25vw;
-    aspect-ratio: 4/3;
-    max-width: 720px;
-    min-width: 360px;
-    overflow: hidden;
   }
