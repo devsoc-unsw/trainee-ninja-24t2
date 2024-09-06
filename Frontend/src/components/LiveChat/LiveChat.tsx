@@ -43,12 +43,13 @@ export const LiveChat = () => {
     }
 
     const handleMute = () => {
-        setMic((a => !a))
+        setMic(!micOn);
     }
 
    
     // Hook provided by Agora, utilize the user's microphone
     const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
+    localMicrophoneTrack?.setMuted(micOn);
 
     /**
      * Publish user's microphone stream to room
@@ -68,7 +69,6 @@ export const LiveChat = () => {
         },
         activeConnection,
     );
-
    
     // Get all remote users's audio tracks and play them
     const remoteUsers = useRemoteUsers();

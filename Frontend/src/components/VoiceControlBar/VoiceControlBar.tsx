@@ -10,10 +10,11 @@ interface VoiceControlBarProps {
 }
 
 export const VoiceControlBar = ({micOn, handleDisconnect, handleMute}: VoiceControlBarProps) => {
+    console.log("TEST", micIcon);
     return (
         <div id="controls-container">
             {
-                micOn === true ? (<img src={micIcon} id="mute-button" onClick={handleMute}/>) : (<img src={muteIcon} id="mute-button" onClick={handleMute}/>)
+                micOn === true ? (<img src={muteIcon} id="mute-button" onClick={handleMute}/>) : (<img src={micIcon} id="mute-button" onClick={handleMute}/>)
             }
            <img src={leaveIcon} id="leave-button" onClick={handleDisconnect}/>
         </div>
