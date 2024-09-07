@@ -31,10 +31,11 @@ body {
 }
 
 #app-name {
+    flex-basis: 100%;
     color: white;
-    font-size: 5rem;
-    padding-left: 1em;
-    padding-top: 1em;
+    font-size: 8rem;
+    margin-left: 4vw;
+    padding-top: 4vw;
     text-align: left;
 }
 

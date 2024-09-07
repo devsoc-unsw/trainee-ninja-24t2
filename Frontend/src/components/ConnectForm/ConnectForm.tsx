@@ -92,7 +92,19 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
         <div className="card">
             <h1 id="app-name">Kuma</h1>
             {!mode && (
-                <div className="button-group">
+                <div className="form-group">
+                    <form id="join-form">
+                    <input
+                        type="text"
+                        id="username-input"
+                        placeholder="Enter Username"
+                        value={nameInput}
+                        onChange={(e) => {
+                            const input = e.target.value;
+                            handleNameInput(input);
+                        }}
+                    />
+                    </form>
                     <button id="create-button" onClick={() => setMode('name')}>Create New Room</button>
                     <button id="join-button" onClick={() => setMode('join')}>Join Existing Room</button>
                 </div>
