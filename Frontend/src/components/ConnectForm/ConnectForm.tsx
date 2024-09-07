@@ -1,5 +1,6 @@
 import { useState } from "react"
 import "./ConnectForm.css"
+import { CreateForm } from "../CreateForm/CreateForm";
 
 const PORT = 8000;
 
@@ -78,6 +79,10 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
         setRoomId('');  // Clear the input field
     };
 
+    const handleNameInput = (input: string) => {
+        setNameInput(input);
+    }
+
     return (
         <div className="card">
             <h1 id="app-name">Kuma</h1>
@@ -88,22 +93,11 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
                 </div>
             )}
             {mode === 'name' && (
-                <form id="join-form" onSubmit={handleCreateRoom}>
-                    <input
-                        type="text"
-                        id="username-input"
-                        placeholder="Enter Username"
-                        value={nameInput}
-                        onChange={(e) => {
-                            const input = e.target.value;
-                            setNameInput(input);
-                        }}
-                    />
-                    <div className="button-group">
-                        <button type="submit">Create Room</button>
-                        <button id="back-button" type="button" onClick={handleBack}>Back</button>
-                    </div>
-                </form>
+                <CreateForm handleCreateRoom={handleCreateRoom} 
+                            handleBack={handleBack}
+                            handleNameInput={handleNameInput}
+                            nameInput={nameInput}>
+                </CreateForm>
             )}
             {mode === 'join' && (
                 <form id="join-form" onSubmit={handleConnect}>

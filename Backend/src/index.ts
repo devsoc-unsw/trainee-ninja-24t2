@@ -19,6 +19,7 @@ app.use(cors({ origin: "*" }));
 const PORT = process.env.PORT || 3000;
 const SOCKET = process.env.SOCKET || 7000;
 const MONGOURL: string = process.env.MONGO_URL || '';
+console.log(MONGOURL);
 
 interface CustomSocket extends Socket {
   username?: string;
