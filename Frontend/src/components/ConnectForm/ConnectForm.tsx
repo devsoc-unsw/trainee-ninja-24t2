@@ -93,28 +93,21 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
             <h1 id="app-name">Kuma</h1>
             {!mode && (
                 <div className="form-group">
-                    <form id="join-form">
-                    <input
-                        type="text"
-                        id="username-input"
-                        placeholder="Enter Username"
-                        value={nameInput}
-                        onChange={(e) => {
-                            const input = e.target.value;
-                            handleNameInput(input);
-                        }}
-                    />
+                    <form id="join-form" onSubmit={handleCreateRoom}>
+                        <input
+                            type="text"
+                            id="username-input"
+                            placeholder="Enter Username"
+                            value={nameInput}
+                            onChange={(e) => {
+                                const input = e.target.value;
+                                handleNameInput(input);
+                            }}
+                        />
+                        <button id="join-button" onClick={() => setMode('join')}>Join Existing Room</button>
+                        <button id="create-button" type="submit">Create New Room</button>
                     </form>
-                    <button id="create-button" onClick={() => setMode('name')}>Create New Room</button>
-                    <button id="join-button" onClick={() => setMode('join')}>Join Existing Room</button>
                 </div>
-            )}
-            {mode === 'name' && (
-                <CreateForm handleCreateRoom={handleCreateRoom} 
-                            handleBack={handleBack}
-                            handleNameInput={handleNameInput}
-                            nameInput={nameInput}>
-                </CreateForm>
             )}
             {mode === 'join' && (
               <JoinForm handleConnect={handleConnect} 

@@ -18,17 +18,6 @@ button {
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #f0f0f0; /* Slightly darker background on hover */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Add a soft shadow */
-}
-
-button:active {
-  background-color: #e0e0e0; /* Darker background when pressed */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow size */
-  transform: scale(0.98); /* Slightly scale down the button */
-}
-
 #create-button {
   border: 1px solid black;
   color: black;
@@ -41,16 +30,45 @@ button:active {
   background-color: black;
 }
 
+#create-button:hover {
+  background-color: rgb(122, 122, 122); /* Slightly darker background on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Add a soft shadow */
+}
+
+#create-button:active {
+  background-color: #e0e0e0; /* Darker background when pressed */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow size */
+  transform: scale(0.98); /* Slightly scale down the button */
+}
+
+#join-button:hover {
+  background-color: rgb(51, 51, 51); /* Slightly darker background on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Add a soft shadow */
+}
+
+#join-button:active {
+  background-color: rgb(0, 0, 0); /* Darker background when pressed */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow size */
+  transform: scale(0.98); /* Slightly scale down the button */
+}
+
+#join-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
 input {
   display: block;
-  padding: 15px;
-  margin: auto auto 25px;
+  padding: 1.2vw;
+  margin-bottom: 2vw;
   width: 50vw;
   max-width: 500px;
   color: white;
   background-color: black;
   border: 1px solid white;
   transition: border-color 0.3s ease;
+  font-size: medium;
 }
 
 #channel-input:focus {

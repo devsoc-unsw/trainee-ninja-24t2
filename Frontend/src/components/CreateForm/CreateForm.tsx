@@ -7,7 +7,7 @@ interface CreateFormProps {
 
 export const CreateForm = ({handleCreateRoom, handleBack, handleNameInput, nameInput}: CreateFormProps) => {
     return (
-        <form id="join-form" onSubmit={handleCreateRoom}>
+        <form id="join-form" autoComplete="off" onSubmit={handleCreateRoom}>
             <input
                 type="text"
                 id="username-input"
