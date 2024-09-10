@@ -1,0 +1,37 @@
+.audio-mixer {
+  margin: 0 auto;
+  text-align: center;
+  
+}
+
+.mixer-track {
+  align-items: center; /* Align items vertically */
+  margin: 5px 0; /* Reduced margin */
+}
+
+.mixer-track p {
+  font-size: 0.8rem; /* Reduced font size */
+  color: rgb(30, 30, 30); /* Updated color */
+  flex: 1; /* Allow the name to take available space */
+}
+
+.mixer-track input[type='range'] {
+  width: 200px; /* Adjust width to make the slider shorter */
+}
+
+.mixer-track button {
+  font-size: 1rem; /* Adjusted font size for better visibility */
+  background: none; /* Remove default button background */
+  border: none; /* Remove default button border */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-family: Arial, sans-serif; /* Ensure font consistency */
+}
+
+.mixer-track button::before {
+  content: '\25B6'; /* Play symbol: ▶ */
+}
+
+.mixer-track button.paused::before {
+  content: '\23F8'; /* Pause symbol: ⏸ */
+  padding-right: 4px;
+}

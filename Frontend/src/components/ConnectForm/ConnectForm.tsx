@@ -83,8 +83,8 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
             <h1 id="app-name">Kuma</h1>
             {!mode && (
                 <div className="button-group">
-                    <button id="create-button" onClick={() => setMode('name')}>Create New Room</button>
-                    <button id="join-button" onClick={() => setMode('join')}>Join Existing Room</button>
+                    <button className="form-button" id="create-button" onClick={() => setMode('name')}>Create New Room</button>
+                    <button className="form-button" id="join-button" onClick={() => setMode('join')}>Join Existing Room</button>
                 </div>
             )}
             {mode === 'name' && (
@@ -100,8 +100,8 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
                         }}
                     />
                     <div className="button-group">
-                        <button type="submit">Create Room</button>
-                        <button id="back-button" type="button" onClick={handleBack}>Back</button>
+                        <button className="form-button" type="submit">Create Room</button>
+                        <button className="form-button" id="back-button" type="button" onClick={handleBack}>Back</button>
                     </div>
                 </form>
             )}
@@ -130,8 +130,8 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
                         }}
                     />
                     <div className="button-group">
-                        <button type="submit">Join Room</button>
-                        <button id="back-button" type="button" onClick={handleBack}>Back</button>
+                        <button className="form-button" type="submit">Join Room</button>
+                        <button className="form-button" id="back-button" type="button" onClick={handleBack}>Back</button>
                     </div>
                 </form>
             )}

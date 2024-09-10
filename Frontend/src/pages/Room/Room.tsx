@@ -1,44 +1,36 @@
 import './Room.css'
 import Chat from '../../components/Chat/Chat'
 import WidgetsContainer from '../../components/WidgetsContainer/WidgetsContainer'
+import AgoraRTC, { AgoraRTCProvider, useRTCClient } from "agora-rtc-react";
+import { LiveChat } from './../../components/LiveChat/LiveChat';
+import { useState } from 'react';
+import AudioMixer from './Audiomixer';
 
 function Room() {
-  return (
-    <div id='room-container'>
-      <WidgetButton/>
-      <ExitButton/>
-      <Chat/>
-      <WidgetsContainer/>
-    </div>
-  )
-}
+  const agoraClient = useRTCClient(AgoraRTC.createClient({ codec: "vp8", mode: "rtc" })); // Initialize Agora Client
+  const [showMenu, setShowMenu] = useState(false);
 
-function WidgetButton() {
-  const openWidgetMenu = () => {
-    // TODO: Open the widget menu and make the button hide
-    console.log("Opened widget menu");
-  }
+  const handleMenu = () => setShowMenu(!showMenu);
 
   return (
-    <div id="widget-button" onClick={openWidgetMenu}></div>
-  )
-}
-
-function ExitButton() {
-  // TODO: Delete room button if owner, potentially in the same container
-
-  const exitRoom = () => {
-    // TODO: Exit the room and go back to home page
-    console.log("Exited room");
-  }
-
-  return (
-    <div id="exit-button" onClick={exitRoom}>Exit Room</div>
-  )
-}
-
-function roomId() {
-    return  localStorage.getItem('roomId');
+    <AgoraRTCProvider client={agoraClient}>
+      <div id="overlay">
+        <h3>Room ID: {localStorage.getItem('roomId')}</h3>
+        <div style={{position: 'absolute', zIndex: 1, right: '25px', top: '15px'}}>
+          <AudioMixer></AudioMixer>
+        </div>
+        {!showMenu && <div id="widget-button" onClick={handleMenu}>&#8964;</div>}
+        {showMenu && <div>
+          <div id="widget-menu" onClick={handleMenu}>
+            <div id="widget-close-button">^</div>
+            <div className="widget-item">+ Pomodoro timer</div>
+            <div className="widget-item">+ Pomodoro timer</div>
+          </div>
+        </div>}
+      </div>
+      <LiveChat></LiveChat>
+    </AgoraRTCProvider>
+  );
 }
   
 export default Room

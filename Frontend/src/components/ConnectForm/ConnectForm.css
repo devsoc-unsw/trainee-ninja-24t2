@@ -1,4 +1,4 @@
-button {
+.form-button {
   margin: 10px;
   width: 8vw;
   border: 1px solid white;
@@ -10,13 +10,11 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
 }
-
-button:hover {
+.form-button:hover {
   background-color: #f0f0f0; /* Slightly darker background on hover */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Add a soft shadow */
 }
-
-button:active {
+.form-button:active {
   background-color: #e0e0e0; /* Darker background when pressed */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow size */
   transform: scale(0.98); /* Slightly scale down the button */
