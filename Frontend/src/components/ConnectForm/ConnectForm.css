@@ -1,3 +1,7 @@
+.card {
+  display: flex;
+  flex-wrap: wrap;
+}
 .form-group {
   display: flex;
   flex-wrap: wrap;
@@ -7,7 +11,7 @@
   margin-bottom: 4vw;
 }
 
-button {
+.home-button {
   text-align: center;
   margin-right: 2vw;
   width: 13vw;
@@ -58,7 +62,7 @@ button {
   justify-content: flex-start;
 }
 
-input {
+#username-input {
   display: block;
   padding: 1.2vw;
   margin-bottom: 2vw;
@@ -71,11 +75,37 @@ input {
   font-size: medium;
 }
 
-#channel-input:focus {
-  border-color: #ff9800; /* Change border color on focus */
+#popup-body {
+  background-color: white;
+  width: 20vw;
+  height: 5vw;
+  display: flex;
+  justify-content: center;
 }
 
-.card {
+#popup-form {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
+
+#popup-input {
+  display: block;
+  padding: 0.5vw;
+  width: 20vw;
+  max-width: 500px;
+  color: white;
+  background-color: black;
+  border: 1px solid white;
+  transition: border-color 0.3s ease;
+  font-size: medium;
+  border-radius: 5px;
+}
+
+#popup-button {
+  width: 20vw;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-weight: bold;
+}
+

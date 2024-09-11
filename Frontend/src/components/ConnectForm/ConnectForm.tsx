@@ -1,7 +1,7 @@
 import { useState } from "react"
 import "./ConnectForm.css"
-import { CreateForm } from "../CreateForm/CreateForm";
 import { JoinForm } from "../JoinForm/JoinForm";
+import { Popover } from "@mui/material";
 
 const PORT = 8000;
 
@@ -34,9 +34,13 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
     const [roomId, setRoomId] = useState('');
     const [mode, setMode] = useState<'join' | 'name' | null>(null);
     const [nameInput, setNameInput] = useState('');
+    // Anchor element for the popup to appear from
+    const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null);
 
     const handleCreateRoom = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        console.log("DEBUG TEST");
         
         if (nameInput.trim() == '') {
             alert('Please enter a valid username');
@@ -88,9 +92,25 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
         setRoomId(roomId);
     }
 
+    // Open popup to join an existing room when button is clicked
+    let popupOpen = Boolean(anchor);
+    const handlePopup = (event: React.MouseEvent<HTMLButtonElement>) => {
+        // Make sure user has entered a user name before allowing to enter a room id
+        // if (nameInput !== '') {
+            setAnchor(event.currentTarget);
+        // }
+    };
+
+    // Handle closing the popup
+    const handleClose = () => {
+        setAnchor(null);
+    };
+
+
     return (
         <div className="card">
             <h1 id="app-name">Kuma</h1>
+            <h2>studying made fun</h2>
             {!mode && (
                 <div className="form-group">
                     <form id="join-form" onSubmit={handleCreateRoom}>
@@ -104,9 +124,26 @@ export const ConnectForm = ({ connectToVideo }: ConnectFormProps) => {
                                 handleNameInput(input);
                             }}
                         />
-                        <button id="join-button" onClick={() => setMode('join')}>Join Existing Room</button>
-                        <button id="create-button" type="submit">Create New Room</button>
+                        <button className="home-button" id="create-button" type="submit">Create New Room</button>
+                        <button className="home-button" id="join-button" type="button" onClick={handlePopup}>Join Existing Room</button>
                     </form>
+                    <Popover id="join-popup" open={popupOpen} anchorEl={anchor} onClose={handleClose}>
+                        <div id="popup-body">
+                            <form id="popup-form" onSubmit={handleConnect}>
+                                <input
+                                    type="text"
+                                    id="popup-input"
+                                    placeholder="Enter RoomId"
+                                    value={roomId}
+                                    onChange={(e) => {
+                                        const input = e.target.value;
+                                        handleRoomId(input);
+                                    }}
+                                />
+                                <button id="popup-button" type="submit" form="popup-form">Join</button>
+                            </form>
+                        </div>
+                    </Popover>
                 </div>
             )}
             {mode === 'join' && (

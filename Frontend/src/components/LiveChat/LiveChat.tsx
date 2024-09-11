@@ -29,7 +29,7 @@ export const LiveChat = () => {
     const [activeConnection, setActiveConnection] = useState(true);
     const [micOn, setMic] = useState(true);
 
-    // Spline 3D scene constants
+    // Spline 3D scene states/constants
     const [spline, setSpline] = useState<Application>();
     const objectAvatarId = "92E09126-2A37-482C-B188-3F73E1B9DFAE";
 
