@@ -5,6 +5,7 @@ import AgoraRTC, { AgoraRTCProvider, useRTCClient } from "agora-rtc-react";
 import { LiveChat } from './../../components/LiveChat/LiveChat';
 import { useState } from 'react';
 import AudioMixer from './Audiomixer';
+import { BaseWidget } from '../../components/BaseWidget/BaseWidget';
 
 function Room() {
   const agoraClient = useRTCClient(AgoraRTC.createClient({ codec: "vp8", mode: "rtc" })); // Initialize Agora Client
@@ -14,8 +15,11 @@ function Room() {
 
   return (
     <AgoraRTCProvider client={agoraClient}>
-      <div className="base-widget">
-          <h1>TEST</h1>
+      <div id="overlay">
+        <h3>Room ID: {localStorage.getItem('roomId')}</h3>
+        <div style={{position: 'absolute', zIndex: 1, right: '25px', top: '15px'}}>
+          <BaseWidget></BaseWidget>
+        </div>
       </div>
       {/* <div id="overlay">
         <h3>Room ID: {localStorage.getItem('roomId')}</h3>
