@@ -1,10 +1,8 @@
 import './Room.css'
-import Chat from '../../components/Chat/Chat'
-import WidgetsContainer from '../../components/WidgetsContainer/WidgetsContainer'
 import AgoraRTC, { AgoraRTCProvider, useRTCClient } from "agora-rtc-react";
 import { LiveChat } from './../../components/LiveChat/LiveChat';
 import { useState } from 'react';
-import AudioMixer from './Audiomixer';
+import { AudioMixer } from '../../components/AudioMixer/AudioMixer';
 import { BaseWidget } from '../../components/BaseWidget/BaseWidget';
 
 function Room() {
@@ -18,7 +16,7 @@ function Room() {
       <div id="overlay">
         <h3>Room ID: {localStorage.getItem('roomId')}</h3>
         <div style={{position: 'absolute', zIndex: 1, right: '25px', top: '15px'}}>
-          <BaseWidget></BaseWidget>
+          <AudioMixer></AudioMixer>
         </div>
       </div>
       {/* <div id="overlay">

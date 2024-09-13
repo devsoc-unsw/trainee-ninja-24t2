@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import Draggable from "react-draggable";
 import { Howl } from 'howler';
-import './Audiomixer.css';
+import './AudioMixer.css';
 
 const soundsData = [
   {
@@ -17,7 +18,7 @@ const soundsData = [
   }
 ];
 
-function AudioMixer() {
+export const AudioMixer = () => {
   const [sounds, setSounds] = useState(
     soundsData.map((sound) => ({
       name: sound.name,
@@ -46,29 +47,29 @@ function AudioMixer() {
   };
 
   return (
-    <div className="audio-mixer">
-      {sounds.map((sound, index) => (
-        <div key={index} className="mixer-track">
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <p>{sound.name}</p>
-            <button 
-              style={{position: 'absolute', right: '10px'}}
-              className={sound.isPlaying ? 'paused' : ''}
-              onClick={() => handlePlayPause(index)}
-            ></button>
-          </div>
-          <input 
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={sound.volume}
-            onChange={(e) => handleVolumeChange(index, parseFloat(e.target.value))}
-          />
+    <Draggable>
+        <div className="audio-mixer">
+        {sounds.map((sound, index) => (
+            <div key={index} className="mixer-track">
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <p>{sound.name}</p>
+                <button 
+                style={{position: 'absolute', right: '10px'}}
+                className={sound.isPlaying ? 'paused' : ''}
+                onClick={() => handlePlayPause(index)}
+                ></button>
+            </div>
+            <input 
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={sound.volume}
+                onChange={(e) => handleVolumeChange(index, parseFloat(e.target.value))}
+            />
+            </div>
+        ))}
         </div>
-      ))}
-    </div>
+    </Draggable>
   );
 }
-
-export default AudioMixer;

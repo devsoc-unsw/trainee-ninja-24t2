@@ -83,6 +83,11 @@ export const LiveChat = () => {
         setSpline(spline);
     }
 
+    // Handle spline scene on click
+    function onSplineMouseDown(e: any) {
+        console.log("SPLINE CLICK", e);
+      }
+
     // Spawn new user's avatar in the 3D scene
     function spawnAvatar() {
         if (typeof spline != "undefined") {
@@ -133,7 +138,7 @@ export const LiveChat = () => {
     return (
         <>
             <div id="scene-container">
-                <Spline scene="https://prod.spline.design/QtFOx3krmOa1IFbv/scene.splinecode" onLoad={onLoad}/>
+                <Spline scene="https://prod.spline.design/ibs1fvgsottbt1db/scene.splinecode" onLoad={onLoad} onSplineMouseDown={onSplineMouseDown}/>
                 <div id="voice-container">
                     <VoiceControlBar micOn={micOn} handleDisconnect={handleDisconnect} handleMute={handleMute}></VoiceControlBar>
                 </div>
