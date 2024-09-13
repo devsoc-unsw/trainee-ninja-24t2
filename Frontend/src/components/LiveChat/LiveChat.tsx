@@ -15,7 +15,11 @@ import './LiveChat.css'
  * https://www.agora.io/en/blog/building-a-video-chat-app-using-react-hooks-and-agora/
  */
 
-export const LiveChat = () => {
+interface LiveChatProps {
+    handleObjectClick: (objName: string) => void;
+}
+
+export const LiveChat = ({handleObjectClick}: LiveChatProps) => {
     // TODO: HIDE WITH ENVIRONMENT VARIABLE
     // Agora appId and token
     const appId = "7176ccafd79b4363bf7dcea529c747ff";
@@ -31,7 +35,10 @@ export const LiveChat = () => {
 
     // Spline 3D scene states/constants
     const [spline, setSpline] = useState<Application>();
-    const objectAvatarId = "92E09126-2A37-482C-B188-3F73E1B9DFAE";
+    const objectAvatarId = "b8fcc6be-6ce8-4908-9b2f-cf1b5c74283d";
+
+    // Widget states
+    const [toggleAudioMixer, setToggleAudioMixer] = useState(false);
 
 
     // Function handlers to be passed as props to child component
@@ -83,10 +90,10 @@ export const LiveChat = () => {
         setSpline(spline);
     }
 
-    // Handle spline scene on click
+    // Spawn widgets on spline click
     function onSplineMouseDown(e: any) {
-        console.log("SPLINE CLICK", e);
-      }
+        handleObjectClick(e.target.name);
+    }
 
     // Spawn new user's avatar in the 3D scene
     function spawnAvatar() {
