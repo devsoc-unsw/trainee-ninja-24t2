@@ -9,6 +9,7 @@ function Room() {
   // Widget states
   const [showAudioMixer, setShowAudioMixer] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
+  
 
   // Toggle widgets depending on object clicked
   function handleObjectClick(objName: string) {

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { MouseEventHandler, useRef } from "react";
 import Countdown from "react-countdown";
 import Draggable from "react-draggable";
 import './CountdownTimer.css';
@@ -11,7 +11,9 @@ interface rendererProps {
     completed: any
 }
 
-export const CountdownTimer = () => {
+// React memo prevents this component from being rerendered accidentally 
+// when another widget is rerendered
+export const CountdownTimer = React.memo(() => {
     const countdownRef = useRef<any>();
     const pomodoroTime = 25 * 60 * 1000;
 
@@ -29,7 +31,13 @@ export const CountdownTimer = () => {
 
     // Format countdown timer
     const renderer = ({ hours, minutes, seconds, completed }: rendererProps) => {
-        return <span>{minutes}:{seconds}</span>;
+        // Pad with zeros
+        if (seconds === 0) {
+            return <span>{minutes}:{"00"}</span>;
+        } 
+        else {
+            return <span>{minutes}:{seconds}</span>;
+        }
     };
 
     return (
@@ -37,12 +45,13 @@ export const CountdownTimer = () => {
             <div className="countdown-timer">
                 <Countdown renderer={renderer} 
                         autoStart={false} 
+                        zeroPadTime={2}
                         date={Date.now() + pomodoroTime} 
                         ref={countdownRef}>
                 </Countdown>
-                <button onClick={handleStartTimer}>Start</button>
-                <button onClick={handlePauseTimer}>Pause</button>
+                <button className="button-default" onClick={handleStartTimer}>Start</button>
+                <button className="button-default" onClick={handlePauseTimer}>Pause</button>
             </div>
         </Draggable>
     )
-}
+})

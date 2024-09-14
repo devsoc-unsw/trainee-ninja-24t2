@@ -28,3 +28,15 @@
     width: 5vw;
     height: 2vw;
 }
+
+.countdown-timer button:hover{
+    background-color: rgb(122, 122, 122); /* Slightly darker background on hover */
+    transform: scale(1.05);
+}
+
+.countdown-timer button:focus{
+    color: black;
+    border: 5px;
+    border-color: black;
+    background-color: white;
+}
