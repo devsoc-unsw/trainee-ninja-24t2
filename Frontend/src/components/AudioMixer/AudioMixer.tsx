@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Draggable from "react-draggable";
 import { Howl } from 'howler';
 import './AudioMixer.css';
+import { Slider } from '@mui/material';
 
 const soundsData = [
   {
@@ -39,15 +40,16 @@ export const AudioMixer = () => {
     setSounds(updatedSounds);
   };
 
-  const handleVolumeChange = (index: number, volume: number) => {
+  const handleVolumeChange = (index: number, event: Event, volume: number | number[]) => {
+    console.log("TEST SLIDER", event, volume);
     const updatedSounds = [...sounds];
-    updatedSounds[index].sound.volume(volume);
-    updatedSounds[index].volume = volume;
+    updatedSounds[index].sound.volume(volume as number);
+    updatedSounds[index].volume = volume as number;
     setSounds(updatedSounds);
   };
 
   return (
-    <Draggable>
+    <Draggable defaultPosition={{x: -200, y: 150}}>
         <div className="audio-mixer">
         {sounds.map((sound, index) => (
             <div key={index} className="mixer-track">
@@ -59,14 +61,41 @@ export const AudioMixer = () => {
                 onClick={() => handlePlayPause(index)}
                 ></button>
             </div>
-            <input 
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                value={sound.volume}
-                onChange={(e) => handleVolumeChange(index, parseFloat(e.target.value))}
-            />
+            <Slider aria-label="Volume" 
+                    sx={(t) => ({
+                      color: 'rgba(255,255,255,0.87)',
+                      height: 4,
+                      '& .MuiSlider-thumb': {
+                        width: 8,
+                        height: 8,
+                        transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
+                        '&::before': {
+                          boxShadow: '0 2px 12px 0 rgba(0,0,0,0.4)',
+                        },
+                        '&:hover, &.Mui-focusVisible': {
+                          boxShadow: `0px 0px 0px 8px ${'rgb(0 0 0 / 16%)'}`,
+                          ...t.applyStyles('dark', {
+                            boxShadow: `0px 0px 0px 8px ${'rgb(255 255 255 / 16%)'}`,
+                          }),
+                        },
+                        '&.Mui-active': {
+                          width: 20,
+                          height: 20,
+                        },
+                      },
+                      '& .MuiSlider-rail': {
+                        opacity: 0.28,
+                      },
+                      ...t.applyStyles('dark', {
+                        color: '#fff',
+                      }),
+                    })}
+                    min={0} 
+                    max={1} 
+                    step={0.01} 
+                    value={sound.volume} 
+                    onChange={(event: Event, newValue: number | number[]) => handleVolumeChange(index, event, newValue)}>
+              </Slider>
             </div>
         ))}
         </div>

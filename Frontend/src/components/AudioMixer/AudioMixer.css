@@ -1,7 +1,13 @@
 .audio-mixer {
     margin: 0 auto;
     text-align: center;
-    background-color: white;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(40px);
+    border-radius: 10px;
+    border: 5px;
+    border-color: white;
+    width: 20vw;
+    padding: 5%;
   }
   
   .mixer-track {
@@ -11,7 +17,8 @@
   
   .mixer-track p {
     font-size: 0.8rem; /* Reduced font size */
-    color: rgb(30, 30, 30); /* Updated color */
+    color: white;
+    text-align: left;
     flex: 1; /* Allow the name to take available space */
   }
   
@@ -29,10 +36,12 @@
   
   .mixer-track button::before {
     content: '\25B6'; /* Play symbol: ▶ */
+    color: white;
   }
   
   .mixer-track button.paused::before {
     content: '\23F8'; /* Pause symbol: ⏸ */
     padding-right: 4px;
+    color: white;
   }
   

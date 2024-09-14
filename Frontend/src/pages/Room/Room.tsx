@@ -9,9 +9,8 @@ function Room() {
 
   // Toggle widgets depending on object clicked
   function handleObjectClick(objName: string) {
-    console.log("SPLINNNE", objName);
     if (objName === "radio") {
-      setShowAudioMixer(!showAudioMixer);
+      setShowAudioMixer(a => !a);
     }
     else if (objName === "computer-2") {
 
@@ -33,20 +32,6 @@ function Room() {
          </div>
         }
       </div>
-      {/* <div id="overlay">
-        <h3>Room ID: {localStorage.getItem('roomId')}</h3>
-        <div style={{position: 'absolute', zIndex: 1, right: '25px', top: '15px'}}>
-          <AudioMixer></AudioMixer>
-        </div>
-        {!showMenu && <div id="widget-button" onClick={handleMenu}>&#8964;</div>}
-        {showMenu && <div>
-          <div id="widget-menu" onClick={handleMenu}>
-            <div id="widget-close-button">^</div>
-            <div className="widget-item">+ Pomodoro timer</div>
-            <div className="widget-item">+ Pomodoro timer</div>
-          </div>
-        </div>}
-      </div> */}
       <LiveChat handleObjectClick={handleObjectClick}></LiveChat>
     </AgoraRTCProvider>
   );
