@@ -1,0 +1,30 @@
+.countdown-timer {
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgba(255,255,255,0.8);
+    backdrop-filter: blur(40px);
+    border-radius: 10px;
+    border: 5px;
+    border-color: white;
+    width: 20vw;
+    padding: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.countdown-timer span {
+    width: 100%;
+    font-size: 5rem;
+}
+
+.countdown-timer button {
+    background-color: black;
+    color: white;
+    border: 0px;
+    border-radius: 20px;
+    margin: 4%;
+    width: 5vw;
+    height: 2vw;
+}

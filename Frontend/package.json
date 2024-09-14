@@ -18,12 +18,15 @@
     "agora-rtc-react": "^2.2.0",
     "agora-rtc-sdk-ng": "^4.21.0",
     "howler": "^2.2.4",
+    "lodash": "^4.17.21",
     "react": "^18.3.1",
+    "react-countdown": "^2.3.6",
     "react-dom": "^18.3.1",
     "react-draggable": "^4.4.6",
     "react-router-dom": "^6.26.0",
     "reactjs-popup": "^2.0.6",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "worker-timers": "^8.0.5"
   },
   "devDependencies": {
     "@types/howler": "^2.2.11",
