@@ -4,6 +4,7 @@ import { LiveChat } from './../../components/LiveChat/LiveChat';
 import { AudioMixer } from '../../components/AudioMixer/AudioMixer';
 import { useState } from 'react';
 import { CountdownTimer } from '../../components/CountdownTimer/CountdownTImer';
+import { WhiteBoard } from '../../components/WhiteBoard/WhiteBoard';
 
 function Room() {
   // Widget states
